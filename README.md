@@ -232,8 +232,8 @@ return [
 ### Quick-start
 
 1. Upload the project files to your web root (`public_html/` on cPanel hosts)
-2. Visit `https://yourdomain.com/admin/` to verify the server meets requirements
-3. Ceate your first admin account and login
+2. Visit `https://yourdomain.com/admin/setup-check.php` to verify the server meets requirements
+3. Create your first admin account and log in
 
 That's it for **Apache** (cPanel, shared hosting, most control panels). For **nginx**, there is one extra step — see the nginx section below.
 
@@ -263,7 +263,7 @@ That's it for **Apache** (cPanel, shared hosting, most control panels). For **ng
 - Sets upload size limits for both mod_php and PHP-FPM stacks
 
 1. Upload all files to your `public_html/` (or vhost document root)
-2. Visit `https://yourdomain.com/admin/setup-check` — confirm all green
+2. Visit `https://yourdomain.com/admin/setup-check.php` — confirm all green
 3. Visit `https://yourdomain.com/admin/` — create your admin account
 
 **Panel notes:**
@@ -380,7 +380,7 @@ Socket path options are listed in the `Caddyfile` header comments.
 | `/admin/` works but `/admin` (no slash) gives 404 | nginx missing the clean-URL rule | Add the `location = /admin` redirect from `nginx-example.conf` |
 | Upload limit errors on large images | `.user.ini` not loaded | Confirm your PHP runs as FPM — for mod_php stacks the `.htaccess` `php_value` lines handle it |
 
-> Visit `https://yourdomain.com/admin/setup-check` at any time to re-run the environment check.
+> Visit `https://yourdomain.com/admin/setup-check.php` at any time to re-run the environment check.
 
 ---
 
@@ -415,6 +415,8 @@ Socket path options are listed in the `Caddyfile` header comments.
 │   ├── history.php              ← Version history list
 │   ├── history-restore.php      ← POST: restore a history snapshot
 │   ├── reset.php                ← POST: factory-reset site content (admin-only)
+│   ├── reset-password.php       ← CLI: reset a user's password from the command line
+│   ├── setup-check.php          ← Environment diagnostic (PHP version, GD, fileinfo, data/ writable)
 │   ├── login.php / logout.php
 │   ├── admin.css                ← Shared admin stylesheet
 │   ├── _auth.php                ← Session auth guard; auth_is_admin() / auth_require_admin()
@@ -438,7 +440,7 @@ Socket path options are listed in the `Caddyfile` header comments.
 │   ├── content.php              ← Live content (PHP-wrapped JSON — never commit publicly)
 │   ├── draft.php                ← Unpublished draft (transient, same format)
 │   ├── users.php                ← User accounts (PHP-wrapped JSON — never commit publicly)
-│   ├── admin_settings.php       ← Admin branding (site_name, site_url, brand_color)
+│   ├── admin_settings.php       ← Admin branding + settings (site_name, site_url, brand_color, clean_urls, image_sizes)
 │   ├── templates/               ← *.template.html files
 │   ├── uploads/                 ← Image uploads (web-accessible; PHP execution blocked)
 │   └── history/                 ← Timestamped content snapshots
@@ -491,4 +493,4 @@ php admin/reset-password.php --list
 
 ## Credits
 
-Built by [ma-tt](https://github.com/ma-tt)
+Built by [Magnabytes](https://magnabytes.com)
