@@ -232,9 +232,8 @@ return [
 ### Quick-start
 
 1. Upload the project files to your web root (`public_html/` on cPanel hosts)
-2. Visit `https://yourdomain.com/admin/setup-check` to verify the server meets requirements
-3. Visit `https://yourdomain.com/admin/` to create your first admin account
-4. Go to **Settings** → set **Site URL** for correct SEO/OG image tags
+2. Visit `https://yourdomain.com/admin/` to verify the server meets requirements
+3. Ceate your first admin account and login
 
 That's it for **Apache** (cPanel, shared hosting, most control panels). For **nginx**, there is one extra step — see the nginx section below.
 
