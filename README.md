@@ -2,6 +2,8 @@
 
 ### *The zero-dependency, drop-in admin panel that generates pure static HTML directly on virtually any web hosting platform.*
 
+**Source available — 100% free forever for personal, hobby, and nonprofit use.** ([License & commercial usage](#license--commercial-usage))
+
 **The Problem:** You built a beautiful, static HTML website for a client. It's fast, custom, and perfect. But then the client asks: *"How do I log in and update the text myself?"* You didn't plan for a CMS, and you definitely don't want to migrate the whole project to WordPress.
 
 **The Solution:** Drop this repository into your project folder. No database, no Node.js, no runtime PHP — just a flat-file content manager that retrofits an elegant admin UI onto any static site. Import your HTML from the dashboard, swap static text for `{{tags}}`, and hand them the keys.
@@ -35,7 +37,7 @@
 
 ## License & Commercial Usage
 
-This project is dual-licensed to support individual creators while protecting independent development.
+This project is source available: the code is public and free to read, run, and modify, with a free path for personal use and a paid path for commercial use.
 
 The source code in this repository is publicly available and licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE.md)**.
 
@@ -130,7 +132,8 @@ Developer (Once)                     Client (Always)
 |---|---|---|
 | `text` | Single line of text | `{{key}}` |
 | `textarea` | Multi-line text; line breaks rendered automatically | `{{key}}` |
-| `image` | File upload — JPEG, PNG, WebP, max 5 MB. Four size variants generated automatically (thumbnail 300px, medium 800px, large 1200px, original). Empty fields show a grey SVG placeholder on the live site. | `{{key}}` → `data/uploads/base_1200.jpg` |
+| `link` | URL field with `http(s)://` validation, client-side and server-side. Works top-level or as a repeatable subfield. | `{{key}}` |
+| `image` | File upload — JPEG, PNG, WebP, max 5 MB. Four size variants generated automatically (thumbnail, medium, large, original — default 300/800/1200px, configurable in Settings). Empty fields show a grey SVG placeholder on the live site. | `{{key}}` → `data/uploads/base_large.jpg` |
 | `repeatable` | Array of items with sub-fields | `{{#key}}...{{/key}}` |
 
 ---
@@ -192,7 +195,7 @@ return [
 |---|---|---|
 | `page` | Yes | Page slug, or `'global'` for global fields |
 | `label` | Yes | Human-readable name shown in the admin |
-| `type` | Yes | `text`, `textarea`, `image`, or `repeatable` |
+| `type` | Yes | `text`, `textarea`, `link`, `image`, or `repeatable` |
 | `placeholder` | No | Ghost text inside the input |
 | `hint` | No | Small note displayed below the input |
 | `required` | No | `true` adds a required marker and HTML validation |
@@ -376,7 +379,7 @@ Socket path options are listed in the `Caddyfile` header comments.
 | "Could not write users file" on first setup | `data/` not writable | Same as above |
 | Images upload but don't resize | GD extension missing | Enable `gd` in cPanel PHP extensions |
 | Images upload but fail silently | fileinfo extension missing | Enable `fileinfo` in cPanel PHP extensions |
-| `/data/config.php` is accessible in the browser (shows blank or source) | `.htaccess` not being read by nginx | Add the `location ^~ /data/` block from `nginx-example.conf` |
+| `/data/content.php` is accessible in the browser (shows blank or source) | `.htaccess` not being read by nginx | Add the `location ^~ /data/` block from `nginx-example.conf` |
 | `/admin/` works but `/admin` (no slash) gives 404 | nginx missing the clean-URL rule | Add the `location = /admin` redirect from `nginx-example.conf` |
 | Upload limit errors on large images | `.user.ini` not loaded | Confirm your PHP runs as FPM — for mod_php stacks the `.htaccess` `php_value` lines handle it |
 
@@ -406,6 +409,7 @@ Socket path options are listed in the `Caddyfile` header comments.
 │   ├── media-delete.php         ← POST: delete image + clear content refs + rebuild
 │   ├── media-upload.php         ← POST: direct upload to library
 │   ├── image-variant.php        ← POST: generate/regenerate a single image variant
+│   ├── regenerate-variants.php  ← POST: re-derive all size variants for every upload (admin-only)
 │   ├── save.php                 ← POST: save content + trigger build
 │   ├── publish.php              ← POST: promote draft to live
 │   ├── scaffold.php             ← POST: scaffold new page fields (admin-only)
@@ -430,11 +434,12 @@ Socket path options are listed in the `Caddyfile` header comments.
 │   ├── _footer.php              ← Shared page footer
 │   ├── _users.php               ← users_read() / users_write() / users_find_by_username()
 │   ├── _admin_settings.php      ← Loads $admin_brand, $admin_color, $admin_site_url
+│   ├── config.php               ← Path constants (lives in admin/, not data/ — it's app
+│   │                                code, so it upgrades with admin/, not with your content)
 │   └── build/
 │       └── builder.php          ← build_site() — template compiler
 │
 ├── data/
-│   ├── config.php               ← Path constants
 │   ├── fields.php               ← Field definitions
 │   ├── pages.php                ← Optional page labels/descriptions
 │   ├── content.php              ← Live content (PHP-wrapped JSON — never commit publicly)
