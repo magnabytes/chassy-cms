@@ -2,7 +2,7 @@
 
 ### *The zero-dependency, drop-in admin panel that generates pure static HTML directly on virtually any web hosting platform.*
 
-**Source available — 100% free forever for personal, hobby, and nonprofit use.** ([License & commercial usage](#license--commercial-usage))
+**Source available — 100% free forever for personal, hobby, and nonprofit use.**
 
 **The Problem:** You built a beautiful, static HTML website for a client. It's fast, custom, and perfect. But then the client asks: *"How do I log in and update the text myself?"* You didn't plan for a CMS, and you definitely don't want to migrate the whole project to WordPress.
 
