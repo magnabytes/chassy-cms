@@ -8,11 +8,11 @@
 
 **The Solution:** Drop this repository into your project folder. No database, no Node.js, no runtime PHP — just a flat-file content manager that retrofits an elegant admin UI onto any static site. Import your HTML from the dashboard, swap static text for `{{tags}}`, and hand them the keys.
 
--**vs WordPress:** No database, no plugin updates, no PHP executing on your live site. The client edits content in a clean UI; the server just serves files. Nothing to hack, nothing to patch, nothing to break.
+--**vs WordPress:** No database, no plugin updates, no PHP executing on your live site. The client edits content in a clean UI; the server just serves files. Nothing to hack, nothing to patch, nothing to break.
 
--**vs Grav, Statamic, or Kirby:** Those are still runtime PHP — every visitor triggers server-side code. This CMS bakes static files once on publish. The public site has zero server-side execution, zero attack surface, and nothing to maintain.
+--**vs Grav, Statamic, or Kirby:** Those are still runtime PHP — every visitor triggers server-side code. This CMS bakes static files once on publish. The public site has zero server-side execution, zero attack surface, and nothing to maintain.
 
--**vs Hugo, Jekyll, or Eleventy:** Static site generators need a build toolchain and have no client-facing editor. This gives you the same pure static output with a browser-based UI your client can use without touching a terminal or a git repo.
+--**vs Hugo, Jekyll, or Eleventy:** Static site generators need a build toolchain and have no client-facing editor. This gives you the same pure static output with a browser-based UI your client can use without touching a terminal or a git repo.
 
 > Development happens in a private repository. This repo tracks stable releases only.
 
